@@ -1,0 +1,74 @@
+import { View, Text ,FlatList,StyleSheet,TouchableOpacity} from 'react-native'
+import React from 'react'
+import ProductCard from './ProductCart';
+import { Colors } from '../constants/constants';
+import { useNavigation } from '@react-navigation/native';
+import Banner from './Banner';
+
+export default function ProductWithCategory({ productsByCategory }) {
+    const navigation=useNavigation();
+  return (
+    <View style={{flex:1}}>
+  
+      <FlatList
+        data={productsByCategory}
+        keyExtractor={(item) => item.category}
+        contentContainerStyle={{ paddingBottom: 80 }}
+        renderItem={({ item }) => (
+          <View style={styles.categorySection}>
+        
+        
+            <View style={styles.categoryHeader}>
+              <Text style={styles.categoryTitle}>{item.category}</Text>
+              <TouchableOpacity onPress={() => navigation.navigate('CategoryScreen', { category: item.category })}>
+                <Text style={styles.moreButton}>More</Text>
+              </TouchableOpacity>
+            </View>
+         
+
+       
+            <FlatList
+              data={item.products}
+              keyExtractor={(product) => product.id}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              renderItem={({ item }) => (
+                <ProductCard 
+                  product={item} 
+                  onAddToCart={(product) => console.log('Added to cart:', product)}
+                />
+              )}
+              
+              
+            />
+          </View>
+        )}
+      />
+    </View>
+  )
+}
+const styles = StyleSheet.create({
+  categorySection: {
+    marginVertical: 8,
+    paddingHorizontal: 10,
+  },
+  categoryHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  categoryTitle: {
+    color: 'black',
+    fontSize: 15,
+    marginLeft:10,
+    fontFamily:'Outfit-Bold',
+
+  },
+  moreButton: {
+    color: Colors.TextGray,
+    fontSize: 14,
+    fontFamily:'Outfit-Regular',
+    textDecorationLine: 'underline',
+  },
+});
