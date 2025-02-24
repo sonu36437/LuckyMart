@@ -6,6 +6,7 @@ import ProductCard from "../components/ProductCart";
 import ProductWithCategory from '../components/ProductWithCategory';
 import Cart from '../components/Cart';
 import Banner from '../components/Banner';
+import { BlurView } from 'expo-blur';
 
 const productsByCategory = [
   {
@@ -90,6 +91,8 @@ export default function Home() {
 
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
+ 
+
       <HomeHeader />
   
       <ProductWithCategory productsByCategory={productsByCategory} />

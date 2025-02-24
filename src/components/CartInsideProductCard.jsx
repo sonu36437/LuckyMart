@@ -1,5 +1,4 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-// import { useState } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 export default function CartInsideProductCard({ product, onAdd, onRemove, count }) {
@@ -7,24 +6,22 @@ export default function CartInsideProductCard({ product, onAdd, onRemove, count 
     <View style={styles.container}>
       {count > 0 ? (
         <View style={styles.counterContainer}>
-      
+          {/* Decrease Quantity */}
           <TouchableOpacity style={styles.counterButton} onPress={() => onRemove(product)}>
-            <Ionicons name="remove" size={18} color="white" />
+            <Ionicons name="remove" size={16} color="white" />
           </TouchableOpacity>
 
-     
+          {/* Item Count */}
           <Text style={styles.countText}>{count}</Text>
 
-         
+          {/* Increase Quantity */}
           <TouchableOpacity style={styles.counterButton} onPress={() => onAdd(product)}>
-        <Ionicons name="add" size={18} color="white" />
-
+            <Ionicons name="add" size={16} color="white" />
           </TouchableOpacity>
         </View>
       ) : (
-      
+        // Add Button
         <TouchableOpacity style={styles.addButton} onPress={() => onAdd(product)}>
-      
           <Text style={styles.addText}>Add</Text>
         </TouchableOpacity>
       )}
@@ -35,39 +32,38 @@ export default function CartInsideProductCard({ product, onAdd, onRemove, count 
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
+    marginTop: 5, // Adjusted spacing for better alignment
   },
   addButton: {
-    flexDirection: "row",
-    width:100,
-    backgroundColor: "black",
-    padding:10,
-     alignItems:'center',
-     justifyContent:'center',
-    borderRadius: 30,
-    
+    backgroundColor: "#1F5B88",
+    width: 110, 
+    paddingVertical: 6,
+    borderRadius: 25,
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 3, 
   },
   addText: {
     color: "white",
-    fontSize: 16,
-    fontFamily: "Outfit-Regular",
-    marginLeft: 5,
+    fontSize: 14,
+    fontFamily:'Outfit-Bold'
   },
   counterContainer: {
     flexDirection: "row",
-    width:150,
-    backgroundColor: "black",
-    padding:4,
-     alignItems:'center',
-     justifyContent:'center',
-    borderRadius: 30,
+    backgroundColor: "#1F5B88",
+    width: 110, 
+    paddingVertical: 6,
+    borderRadius: 25,
+    alignItems: "center",
+    justifyContent: "space-around",
+    elevation: 3, 
   },
   counterButton: {
-    padding: 5,
+    paddingHorizontal: 10,
   },
   countText: {
     color: "white",
-    fontFamily:'Outfit-Bold',
-    fontSize: 12,
-    marginHorizontal: 10,
+    fontSize: 14,
+    fontFamily:'Outfit-Bold'
   },
 });

@@ -1,66 +1,70 @@
 import { View, Text, Image, TouchableOpacity, StyleSheet, Animated } from 'react-native';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useCartStore } from '../store/cart';
 import { useNavigation } from '@react-navigation/native';
-import { Colors } from '../constants/constants';
+import { BlurView } from 'expo-blur';
 
 export default function Cart() {
   const { cartItems } = useCartStore();
   const navigation = useNavigation();
 
- 
-  const lastItem = cartItems.length > 0 ? cartItems[cartItems.length - 1] : null;
+  if (!cartItems || cartItems.length === 0) return null;
 
-  if (!lastItem) return null; 
-  const translateY = new Animated.Value(100);
-  Animated.timing(translateY, {
-    toValue: 0,
-    duration: 500,
-    useNativeDriver: true,
-  }).start();
+  const lastItem = cartItems[cartItems.length - 1];
+
+
 
   return (
-    <Animated.View style={{ transform: [{ translateY }] }}>
-    <View style={styles.cartContainer}>
-
-      <Image source={{ uri: lastItem.image }} style={styles.productImage} />
+    <View style={styles.animatedContainer}>
 
 
-      <View style={styles.textContainer}>
-        <Text style={styles.itemName} numberOfLines={1}>{lastItem.name}</Text>
-        <Text style={styles.itemPrice}>{'\u20B9'}{lastItem.price}</Text>
+      <BlurView intensity={70} tint='systemMaterialDark' experimentalBlurMethod='dimezisBlurView' style={styles.cartContainer}>
+        <Image source={{ uri: lastItem.image }} style={styles.productImage} />
+
+        <View style={styles.textContainer}>
+          <Text style={styles.itemName} numberOfLines={1}>{lastItem.name}</Text>
+          <Text style={styles.itemPrice}>{'\u20B9'}{lastItem.price}</Text>
+        </View>
+
+        <TouchableOpacity
+          style={styles.viewCartButton}
+          onPress={() => {
+            if (navigation) {
+              navigation.navigate('cart'); 
+            } else {
+              console.error('Navigation is undefined');
+            }
+          }}
+        >
+          <Text style={styles.viewCartText}>View Cart</Text>
+        </TouchableOpacity>
+      </BlurView>
       </View>
 
-   
-      <TouchableOpacity style={styles.viewCartButton} onPress={() => navigation.navigate('cart')}>
-        <Text style={styles.viewCartText}>View Cart</Text>
-      </TouchableOpacity>
-    </View>
-    </Animated.View>
-  
   );
 }
 
 const styles = StyleSheet.create({
-  cartContainer: {
+  animatedContainer: {
     position: 'absolute',
-    bottom: 20,
-   
+     bottom:0,
+    alignItems: 'center',
+  },
+  cartContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor:  'black',
-    width: '100%',
-    height: 85,
-    paddingHorizontal: 15,
     justifyContent: 'space-between',
-    borderTopEndRadius: 27,
-    borderTopStartRadius: 27,
-    borderBottomLeftRadius: 27,
-    borderBottomRightRadius: 27,
+    width: '100%',
+    height: 80,
+    paddingHorizontal: 15,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    overflow: 'hidden',
   },
   productImage: {
     width: 50,
     height: 50,
+    aspectRatio:1,
     borderRadius: 10,
   },
   textContainer: {
@@ -69,24 +73,23 @@ const styles = StyleSheet.create({
   },
   itemName: {
     color: 'white',
-    fontFamily: 'Outfit-Bold',
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: 'Outfit-Bold',
   },
   itemPrice: {
     color: 'white',
-    fontFamily: 'Outfit-Regular',
     fontSize: 14,
+    fontFamily:'Outfit-Regular'
   },
   viewCartButton: {
-    backgroundColor: 'white',
+    backgroundColor: 'rgb(31, 91, 136)',
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderRadius: 8,
   },
   viewCartText: {
-    color: 'black',
+    color: 'white',
     fontSize: 14,
-   fontFamily: 'Outfit-Bold',
+    fontWeight: 'bold',
   },
 });

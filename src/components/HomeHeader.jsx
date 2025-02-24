@@ -31,8 +31,9 @@ const styles = StyleSheet.create({
     width: '100%',
     
     height: 120,
-    backgroundColor: Colors.Primary,
-    padding: 10,
+    // backgroundColor: Colors.Primary,
+    backgroundColor:'rgb(31, 91, 136)',
+    paddingHorizontal: 8,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
   },
