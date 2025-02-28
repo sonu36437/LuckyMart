@@ -1,12 +1,14 @@
-import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
-import React from 'react';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import HomeHeader from '../components/HomeHeader';
 import ProductCard from "../components/ProductCart";
 import ProductWithCategory from '../components/ProductWithCategory';
 import Cart from '../components/Cart';
 import Banner from '../components/Banner';
-import { BlurView } from 'expo-blur';
+import { Skeleton } from '@rneui/base';
+
+import axios from 'axios';
 
 const productsByCategory = [
   {
@@ -88,25 +90,70 @@ const productsByCategory = [
 
 export default function Home() {
   const navigation = useNavigation();
+  const [prod, setProd] = useState([]);
+
+  useEffect(() => {
+    async function fetchCategory() {
+      try {
+        const category = (await axios.get('https://fakestoreapi.com/products/categories')).data;
+        console.log(category);
+
+        const productsByCategory = await Promise.all(
+          category.map(async (category) => {
+            const products = (await axios.get(`https://fakestoreapi.com/products/category/${category}`)).data;
+            return { category, products };
+          })
+        );
+
+        setProd(productsByCategory);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    }
+
+    fetchCategory();
+  }, []);
+
+
 
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
- 
+
 
       <HomeHeader />
-  
-      <ProductWithCategory productsByCategory={productsByCategory} />
-      <Cart/>
-
       
+      {prod.length <= 0 && <View style={{
+        marginTop: 4,
+        borderRadius: 20,
+        padding: 6,
+        overflow: 'hidden',
+        flexDirection: 'column',
+
+      }}>
+        {Array.from({ length: 20 }).map((_, index) => (
+          <Skeleton
+            key={index}
+            height={160}
+            width={'100%'}
+            style={{ marginBottom: 4, borderRadius: 20 }}
+          />
+        ))}
+      </View>}
+
+
+
+
+      <ProductWithCategory productsByCategory={prod} />
+      <Cart />
+
+
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   categorySection: {
-    marginVertical: 8,
-    paddingHorizontal: 10,
+    marginVertical: 6,
   },
   categoryHeader: {
     flexDirection: 'row',
@@ -117,7 +164,7 @@ const styles = StyleSheet.create({
   categoryTitle: {
     color: 'white',
     fontSize: 15,
-    fontFamily:'Outfit-Bold',
+    fontFamily: 'Outfit-Bold',
 
   },
   moreButton: {

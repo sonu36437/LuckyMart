@@ -2,7 +2,8 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-nativ
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
-import { Colors } from '../constants/constants';
+import { COLORS, Colors, FONT_SIZES } from '../constants/constants';
+import { Skeleton } from '@rneui/themed';
 
 export default function HomeHeader() {
   const navigation = useNavigation();
@@ -12,7 +13,7 @@ export default function HomeHeader() {
       <View style={styles.header}>
         <Text style={styles.userText}>Hii, User</Text>
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-        <Ionicons name="person-circle-outline" size={40} color="white" />
+        <Ionicons name="person-outline" size={20} color="white" />
         </TouchableOpacity>
       </View>
 
@@ -31,9 +32,10 @@ const styles = StyleSheet.create({
     width: '100%',
     
     height: 120,
-    // backgroundColor: Colors.Primary,
+  
     backgroundColor:'rgb(31, 91, 136)',
-    paddingHorizontal: 8,
+    paddingVertical: 15,
+    paddingHorizontal: 10,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
   },
@@ -44,14 +46,14 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   userText: {
-    color: Colors.TextWhite,
-    fontSize: 18,
-    fontFamily: 'Outfit-Bold',
+    color: COLORS.white,
+    fontSize: FONT_SIZES.medium,
+    fontFamily: 'Outfit-Medium',
   },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.secondary,
+    backgroundColor: COLORS.white,
     borderRadius: 12,
     paddingLeft: 12,
     height: 45,
@@ -60,8 +62,8 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   searchPlaceholder: {
-    fontSize: 16,
-    color: '#888',
+    fontSize:FONT_SIZES.small,
+    color: COLORS.black,
     fontFamily: 'Outfit-Regular',
   },
 });

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
 import { useCartStore } from '../store/cart';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Colors } from '../constants/constants';
+import { COLORS, FONT_SIZES } from '../constants/constants';
 
 export default function CartScreen() {
   const { cartItems, totalcost, addToCart, removeFromCart } = useCartStore();
@@ -24,7 +24,7 @@ export default function CartScreen() {
               <Image source={{ uri: item.image }} style={styles.itemImage} />
 
               <View style={styles.itemDetails}>
-                <Text style={styles.itemName} numberOfLines={1}>{item.name}</Text>
+                <Text style={styles.itemName} numberOfLines={1}>{item.title}</Text>
                 <Text style={styles.itemPrice}>{'\u20B9'}{item.price}</Text>
               </View>
 
@@ -61,15 +61,15 @@ export default function CartScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.Primary,
+    backgroundColor: COLORS.white,
     padding: 20,
   },
   header: {
-    fontSize: 22,
+    fontSize: FONT_SIZES.medium,
 fontFamily:'Outfit-Bold',
     textAlign: 'center',
     marginBottom: 20,
-    color: Colors.secondary,
+    color: COLORS.primary,
   },
   emptyContainer: {
     flex: 1,
@@ -77,14 +77,14 @@ fontFamily:'Outfit-Bold',
     alignItems: 'center',
   },
   emptyText: {
-    fontSize: 16,
-    color: Colors.TextWhite,
+    fontSize: FONT_SIZES.medium,
+    color: COLORS.black,
     fontFamily: 'Outfit-Bold',
   },
   cartItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.lightGray,
+    backgroundColor: COLORS.white,
     padding: 15,
     borderRadius: 10,
     marginBottom: 10,
@@ -92,6 +92,7 @@ fontFamily:'Outfit-Bold',
   itemImage: {
     width: 60,
     height: 60,
+    aspectRatio: 1,
     borderRadius: 10,
   },
   itemDetails: {
@@ -99,19 +100,19 @@ fontFamily:'Outfit-Bold',
     marginLeft: 10,
   },
   itemName: {
-    fontSize: 16,
+    fontSize: FONT_SIZES.small,
     fontFamily:'Outfit-Bold',
-    color: Colors.TextWhite,
+    color: COLORS.black,
   },
   itemPrice: {
-    fontSize: 14,
+    fontSize: FONT_SIZES.medium,
     fontFamily:'Outfit-Regular',
-    color: 'gray',
+    color: COLORS.black,
   },
   quantityContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.secondary,
+    backgroundColor: COLORS.white,
     paddingVertical: 5,
     paddingHorizontal: 10,
     borderRadius: 20,
@@ -122,7 +123,7 @@ fontFamily:'Outfit-Bold',
   itemCount: {
     fontSize: 18,
     fontFamily:'Outfit-Regular',
-    color: Colors.TextBlack,
+    color: COLORS.black,
     marginHorizontal: 10,
   },
   bottomContainer: {
@@ -130,24 +131,24 @@ fontFamily:'Outfit-Bold',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: 15,
-    borderTopWidth: 1,
-    borderColor: Colors.gray,
+ 
+    borderColor: COLORS.black,
     marginTop: 10,
   },
   totalText: {
-    fontSize: 18,
+    fontSize: FONT_SIZES.medium,
     fontFamily:'Outfit-Bold',
-    color: Colors.TextWhite,
+    color: COLORS.black,
   },
   checkoutButton: {
-    backgroundColor: 'white',
+    backgroundColor: COLORS.primary,
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 10,
   },
   checkoutText: {
-    color: 'black',
-    fontSize: 16,
+    color: COLORS.white,
+    fontSize: FONT_SIZES.medium,
    fontFamily:'Outfit-Bold',
   },
 });

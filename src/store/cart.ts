@@ -3,7 +3,7 @@ import { create } from "zustand";
 let timeOut: NodeJS.Timeout;
 
 type Item = {
-  id: number;
+  id: string;
   name: string;
   price: number;
   itemCount: number;
@@ -21,6 +21,8 @@ export const useCartStore = create<CartState>((set) => ({
   totalItems: 0,
   cartItems: [],
   totalcost: 0,
+  
+  
 
   addToCart: (item: Item) => {
     set((state) => {

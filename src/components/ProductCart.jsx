@@ -1,29 +1,40 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions, Pressable } from 'react-native';
 import { useCartStore } from '../store/cart';
-import CartInsideProductCard from './CartInsideProductCard';
+import CartButton from './CartButton';
+import { COLORS, FONT_SIZES } from '../constants/constants';
+import { useNavigation } from '@react-navigation/native';
 
 const { width, height } = Dimensions.get('window'); // Get device width & height
 
 export default function ProductCard({ product }) {
   const { addToCart, removeFromCart, cartItems } = useCartStore();
+  const navigation = useNavigation();
 
   const cartItem = cartItems.find((item) => item.id === product.id);
   const count = cartItem ? cartItem.itemCount : 0;
 
   return (
+  
     <View style={styles.card}>
-      {/* Product Image */}
+   <Pressable onPress={()=>{
+    navigation.navigate('productDetail',{product})
+    ;
+    
+
+    
+   }}>
       <Image source={{ uri: product.image }} style={styles.image} />
 
  
       <View style={styles.details}>
-        <Text style={styles.name} numberOfLines={1}>{product.name}</Text>
+        <Text style={styles.name} numberOfLines={1}>{product.title}</Text>
         
         {/* Discount & Price */}
         <View style={styles.priceRow}>
           {product.discount && (
             <Text style={styles.discountPrice}>
+            
               {'\u20B9'}{(product.price - (product.price * product.discount) / 100).toFixed(2)}
             </Text>
           )}
@@ -33,17 +44,13 @@ export default function ProductCard({ product }) {
           {product.discount && <Text style={styles.discountTag}>{product.discount}% OFF</Text>}
         </View>
 
-        {/* Rating & Stock Status */}
-        {/* <View style={styles.extraDetails}>
-          <Text style={styles.rating}>⭐ {product.rating || '4.5'}</Text>
-          <Text style={[styles.stockStatus, product.stock > 0 ? styles.inStock : styles.outOfStock]}>
-            {product.stock > 0 ? 'In Stock' : 'Out of Stock'}
-          </Text>
-        </View> */}
+      
       </View>
+   </Pressable>
+
 
       {/* Add to Cart Section */}
-      <CartInsideProductCard 
+      <CartButton 
         product={product} 
         onAdd={addToCart} 
         onRemove={removeFromCart} 
@@ -76,8 +83,8 @@ const styles = StyleSheet.create({
   },
   name: {
     color: 'black',
-    fontSize: 14,
-    fontFamily:"Outfit-Bold",
+    fontSize: FONT_SIZES.small,
+    fontFamily:"Outfit-Medium",
     textAlign: 'center',
   },
   priceRow: {
@@ -86,9 +93,9 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   price: {
-    color: '#555',
-    fontSize: 13,
-    fontFamily:'Outfit-Regular'
+    color: COLORS.black,
+    fontSize: FONT_SIZES.medium,
+    fontFamily:'Outfit-Bold'
   },
   strikeThrough: {
     textDecorationLine: 'line-through',

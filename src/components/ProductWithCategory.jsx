@@ -1,7 +1,7 @@
 import { View, Text ,FlatList,StyleSheet,TouchableOpacity} from 'react-native'
 import React from 'react'
 import ProductCard from './ProductCart';
-import { Colors } from '../constants/constants';
+import { COLORS, FONT_SIZES } from '../constants/constants';
 import { useNavigation } from '@react-navigation/native';
 import Banner from './Banner';
 
@@ -14,6 +14,7 @@ export default function ProductWithCategory({ productsByCategory }) {
         data={productsByCategory}
         keyExtractor={(item) => item.category}
         contentContainerStyle={{ paddingBottom: 80 }}
+        ListHeaderComponent={Banner}
         renderItem={({ item }) => (
           <View style={styles.categorySection}>
         
@@ -32,6 +33,10 @@ export default function ProductWithCategory({ productsByCategory }) {
               keyExtractor={(product) => product.id}
               horizontal
               showsHorizontalScrollIndicator={false}
+              bounces={true}
+              overScrollMode='always'
+              decelerationRate='fast'
+              scrollEventThrottle={16}
               renderItem={({ item }) => (
                 <ProductCard 
                   product={item} 
@@ -60,13 +65,13 @@ const styles = StyleSheet.create({
   },
   categoryTitle: {
     color: 'black',
-    fontSize: 15,
+    fontSize: FONT_SIZES.medium,
     marginLeft:10,
     fontFamily:'Outfit-Bold',
 
   },
   moreButton: {
-    color: Colors.TextGray,
+    color: COLORS.white,
     fontSize: 14,
     fontFamily:'Outfit-Regular',
     textDecorationLine: 'underline',

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, FlatList, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { COLORS } from '../constants/constants';
 
 const mockSuggestions = ['Apple', 'Banana', 'Orange', 'Grapes', 'Mango', 'Pineapple', 'Strawberry', 'Blueberry'];
 
@@ -54,10 +55,10 @@ export default function SearchScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: COLORS.white,
   },
   header: {
-    backgroundColor: 'black',
+    backgroundColor: COLORS.primary,
     paddingVertical: 20,
     paddingHorizontal: 15,
     flexDirection: 'row',

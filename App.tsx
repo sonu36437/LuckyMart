@@ -9,6 +9,8 @@ import Screen from './src/screens/Screen';
 import CategoryScreen from './src/screens/CategoryScreen';
 import CartScreen from './src/screens/CartScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
+import ProductDetailScreen from './src/screens/ProductDetailScreen';
+import { COLORS } from './src/constants/constants';
 const Stack = createNativeStackNavigator();
 export default function App() {
   const linking = {
@@ -24,17 +26,18 @@ export default function App() {
 
   return (
 <NavigationContainer linking={linking}>
-  <Stack.Navigator screenOptions={{headerShown:false}}
+  <Stack.Navigator screenOptions={{headerShown:true}}
   initialRouteName='Auth'
   >
 
     <Stack.Screen name="Auth"component={AuthStack}/>  
     <Stack.Screen name="verification" component={VerificationScreen}/>
-    <Stack.Screen name="Home" component={Home}/>
-    <Stack.Screen name="Search" component={Screen} options={{animation:'ios_from_right',}}/>
+    <Stack.Screen name="Home" component={Home} options={{headerShown:false}}/>
+    <Stack.Screen name="Search" component={Screen} options={{animation:'ios_from_right', headerShown:false}}/>
     <Stack.Screen name='CategoryScreen' component={CategoryScreen} options={{animation:'ios_from_right',}}/>
     <Stack.Screen name='cart' component={CartScreen} options={{animation:'fade_from_bottom',}}/>
-    <Stack.Screen name='Profile' component={ProfileScreen} options={{animation:'ios_from_right',}}/>
+    <Stack.Screen name='productDetail' component={ProductDetailScreen}  options={{animation:'fade_from_bottom' ,headerShown:true, headerTitleStyle:{color:COLORS.black,fontFamily:"Outfit-Bold"},headerStyle:{backgroundColor:COLORS.white,}}}/>
+    <Stack.Screen name='Profile' component={ProfileScreen} options={{animation:'ios_from_right',headerShown:true}}/>
   </Stack.Navigator>
 
 </NavigationContainer>

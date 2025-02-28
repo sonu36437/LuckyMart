@@ -1,28 +1,29 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-export default function CartInsideProductCard({ product, onAdd, onRemove, count }) {
+export default function CartButton({ 
+  product, 
+  onAdd, 
+  onRemove, 
+  count, 
+  buttonStyle = {}, 
+  textStyle = {} 
+}) {
   return (
     <View style={styles.container}>
       {count > 0 ? (
-        <View style={styles.counterContainer}>
-          {/* Decrease Quantity */}
+        <View style={[styles.counterContainer, buttonStyle]}>
           <TouchableOpacity style={styles.counterButton} onPress={() => onRemove(product)}>
             <Ionicons name="remove" size={16} color="white" />
           </TouchableOpacity>
-
-          {/* Item Count */}
-          <Text style={styles.countText}>{count}</Text>
-
-          {/* Increase Quantity */}
+          <Text style={[styles.countText, textStyle]}>{count}</Text>
           <TouchableOpacity style={styles.counterButton} onPress={() => onAdd(product)}>
             <Ionicons name="add" size={16} color="white" />
           </TouchableOpacity>
         </View>
       ) : (
-        // Add Button
-        <TouchableOpacity style={styles.addButton} onPress={() => onAdd(product)}>
-          <Text style={styles.addText}>Add</Text>
+        <TouchableOpacity style={[styles.addButton, buttonStyle]} onPress={() => onAdd(product)}>
+          <Text style={[styles.addText, textStyle]}>Add To Cart</Text>
         </TouchableOpacity>
       )}
     </View>
@@ -32,12 +33,12 @@ export default function CartInsideProductCard({ product, onAdd, onRemove, count 
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    marginTop: 5, // Adjusted spacing for better alignment
+
   },
   addButton: {
     backgroundColor: "#1F5B88",
     width: 110, 
-    paddingVertical: 6,
+    paddingVertical: 10,
     borderRadius: 25,
     alignItems: "center",
     justifyContent: "center",
@@ -45,8 +46,8 @@ const styles = StyleSheet.create({
   },
   addText: {
     color: "white",
-    fontSize: 14,
-    fontFamily:'Outfit-Bold'
+    fontSize: 10,
+    fontFamily: "Outfit-Bold",
   },
   counterContainer: {
     flexDirection: "row",
@@ -64,6 +65,6 @@ const styles = StyleSheet.create({
   countText: {
     color: "white",
     fontSize: 14,
-    fontFamily:'Outfit-Bold'
+    fontFamily: "Outfit-Bold",
   },
 });
