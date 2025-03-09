@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingVi
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { CustomTextInput } from './SignUp';
+import { COLORS } from '../constants/constants';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontFamily: 'Outfit-Bold',
 
-    color: 'black',
+    color: COLORS.primary,
     marginBottom: 8,
   },
   subtitle: {
@@ -104,7 +105,7 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     width: '100%',
-    backgroundColor: 'black',
+    backgroundColor: COLORS.primary,
     paddingVertical: 16,
     borderRadius: 12,
     alignItems: 'center',
@@ -122,6 +123,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'Outfit-Regular',
 
-    color: 'gray',
+    color: COLORS.primary,
   },
 });

@@ -2,7 +2,7 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import React from 'react';
 import { useCartStore } from '../store/cart';
 import { useNavigation } from '@react-navigation/native';
-import { FONT_SIZES } from '../constants/constants';
+import { COLORS, FONT_SIZES } from '../constants/constants';
 
 export default function Cart() {
   const { cartItems, totalItems, totalcost } = useCartStore();
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 80,
     paddingHorizontal: 10,
-    backgroundColor:'black',
+    backgroundColor:'white',
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
   },
@@ -76,23 +76,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   itemName: {
-    color: 'white',
+    color: COLORS.black,
     fontSize: FONT_SIZES.medium,
     fontFamily: 'Outfit-Bold',
   },
   itemPrice: {
-    color: 'white',
+    color: COLORS.black,
     fontSize: FONT_SIZES.small,
     fontFamily: 'Outfit-Regular',
   },
   viewCartButton: {
-    backgroundColor: '#1F5B88',
+    backgroundColor: COLORS.primary,
     paddingVertical: 20,
     paddingHorizontal: 20,
     borderRadius: 10,
   },
   viewCartText: {
-    color: 'white',
+    color: COLORS.white,
     fontSize: FONT_SIZES.small,
     fontFamily: 'Outfit-Bold',
   },

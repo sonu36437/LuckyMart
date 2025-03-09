@@ -1,5 +1,6 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { COLORS } from "../constants/constants";
 
 export default function CartButton({ 
   product, 
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
 
   },
   addButton: {
-    backgroundColor: "#1F5B88",
+    backgroundColor: COLORS.primary,
     width: 110, 
     paddingVertical: 10,
     borderRadius: 25,
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
   },
   counterContainer: {
     flexDirection: "row",
-    backgroundColor: "#1F5B88",
+    backgroundColor: COLORS.primary,
     width: 110, 
     paddingVertical: 6,
     borderRadius: 25,

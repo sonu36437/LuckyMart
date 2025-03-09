@@ -2,8 +2,10 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, StatusBar } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { COLORS } from '../constants/constants';
+import { useNavigation } from '@react-navigation/native';
 
 export default function ProfileScreen() {
+  const navigation= useNavigation();
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
@@ -21,7 +23,11 @@ export default function ProfileScreen() {
           <Ionicons name="chevron-forward-outline" size={22} color="gray" />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.section}>
+        <TouchableOpacity style={styles.section}
+        onPress={()=>{
+          navigation.navigate('Address');
+        }}
+        >
           <Ionicons name="location-outline" size={26} color={COLORS.black} />
           <Text style={styles.sectionText}>Address</Text>
           <Ionicons name="chevron-forward-outline" size={22} color={COLORS.black} />
@@ -94,7 +100,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
   },
   logoutText: {
-    color: 'rgb(253, 125, 125)',
+    color: 'rgb(250, 14, 14)',
     fontFamily: 'Outfit-Bold',
   },
 });

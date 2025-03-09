@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
 import React, { useState } from 'react';
 import { useNavigation ,CommonActions} from '@react-navigation/native';
+import { COLORS } from '../constants/constants';
 
 export const CustomTextInput = ({ label, value, onChangeText, placeholder, secureTextEntry, keyboardType, autoCapitalize, focusedInput, setFocusedInput, borderColor }) => (
   <View style={[styles.inputContainer, focusedInput === label && styles.inputFocused, borderColor && { borderColor }]}>
@@ -149,7 +150,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     fontFamily: 'Outfit-Bold',
-    color: 'black',
+    color: COLORS.primary,
     marginBottom: 8,
   },
   inputContainer: {
@@ -174,7 +175,7 @@ const styles = StyleSheet.create({
   },
   signUpButton: {
     width: '100%',
-    backgroundColor: 'black',
+    backgroundColor: COLORS.primary,
     paddingVertical: 16,
     borderRadius: 12,
     alignItems: 'center',
@@ -183,7 +184,7 @@ const styles = StyleSheet.create({
   signUpButtonText: {
     fontSize: 14,
     fontFamily: 'Outfit-Bold',
-    color: '#FFF',
+    color: COLORS.white,
   },
   loginButton: {
     marginTop: 20,
@@ -191,6 +192,6 @@ const styles = StyleSheet.create({
   loginText: {
     fontSize: 14,
     fontFamily: 'Outfit-Regular',
-    color: 'gray',
+    color: COLORS.primary,
   },
 });

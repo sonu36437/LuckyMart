@@ -4,8 +4,9 @@ import { useCartStore } from '../store/cart';
 import CartButton from './CartButton';
 import { COLORS, FONT_SIZES } from '../constants/constants';
 import { useNavigation } from '@react-navigation/native';
+import Badge from './Badge';
 
-const { width, height } = Dimensions.get('window'); // Get device width & height
+const { width, height } = Dimensions.get('window');
 
 export default function ProductCard({ product }) {
   const { addToCart, removeFromCart, cartItems } = useCartStore();
@@ -15,46 +16,45 @@ export default function ProductCard({ product }) {
   const count = cartItem ? cartItem.itemCount : 0;
 
   return (
-  
+
     <View style={styles.card}>
-   <Pressable onPress={()=>{
-    navigation.navigate('productDetail',{product})
-    ;
-    
 
-    
-   }}>
-      <Image source={{ uri: product.image }} style={styles.image} />
+      <Pressable onPress={() => {
+        navigation.navigate('productDetail', { product })
+      }}>
 
- 
-      <View style={styles.details}>
-        <Text style={styles.name} numberOfLines={1}>{product.title}</Text>
-        
-        {/* Discount & Price */}
-        <View style={styles.priceRow}>
-          {product.discount && (
-            <Text style={styles.discountPrice}>
-            
-              {'\u20B9'}{(product.price - (product.price * product.discount) / 100).toFixed(2)}
+        <Image source={{ uri: product.image }} style={styles.image} />
+        <Badge placeholder="Discount Avalible" color='green' />
+
+
+        <View style={styles.details}>
+          <Text style={styles.name} numberOfLines={1}>{product.title}</Text>
+
+
+          <View style={styles.priceRow}>
+            {product.discount && (
+              <Text style={styles.discountPrice}>
+
+                {'\u20B9'}{(product.price - (product.price * product.discount) / 100).toFixed(2)}
+              </Text>
+            )}
+            <Text style={[styles.price, product.discount && styles.strikeThrough]}>
+              {'\u20B9'}{product.price}
             </Text>
-          )}
-          <Text style={[styles.price, product.discount && styles.strikeThrough]}>
-            {'\u20B9'}{product.price}
-          </Text>
-          {product.discount && <Text style={styles.discountTag}>{product.discount}% OFF</Text>}
+            {product.discount && <Text style={styles.discountTag}>{product.discount}% OFF</Text>}
+          </View>
+
+
         </View>
-
-      
-      </View>
-   </Pressable>
+      </Pressable>
 
 
-      {/* Add to Cart Section */}
-      <CartButton 
-        product={product} 
-        onAdd={addToCart} 
-        onRemove={removeFromCart} 
-        count={count} 
+
+      <CartButton
+        product={product}
+        onAdd={addToCart}
+        onRemove={removeFromCart}
+        count={count}
       />
     </View>
   );
@@ -64,17 +64,18 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: 'white',
     borderRadius: 12,
-    padding: 12,
+    padding: 10,
     width: width * 0.42,
-    height: height * 0.33, 
+    height: height * 0.33,
     alignItems: 'center',
     margin: 0,
- 
+
+
   },
   image: {
     width: '90%',
     aspectRatio: 1,
-    resizeMode: 'contain', 
+    resizeMode: 'contain',
     borderRadius: 8,
   },
   details: {
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
   name: {
     color: 'black',
     fontSize: FONT_SIZES.small,
-    fontFamily:"Outfit-Medium",
+    fontFamily: "Outfit-Medium",
     textAlign: 'center',
   },
   priceRow: {
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
   price: {
     color: COLORS.black,
     fontSize: FONT_SIZES.medium,
-    fontFamily:'Outfit-Bold'
+    fontFamily: 'Outfit-Bold'
   },
   strikeThrough: {
     textDecorationLine: 'line-through',

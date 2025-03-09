@@ -1,13 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, TextInput, FlatList, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { COLORS } from '../constants/constants';
+import { useNavigation } from '@react-navigation/native';
+import debounce from '../utils/throttleFunction';
+
+
+
 
 const mockSuggestions = ['Apple', 'Banana', 'Orange', 'Grapes', 'Mango', 'Pineapple', 'Strawberry', 'Blueberry'];
 
 export default function SearchScreen() {
   const [searchText, setSearchText] = useState('');
   const [suggestions, setSuggestions] = useState([]);
+  const navigation = useNavigation();
+  const inputRef = useRef(null); 
+
+  useEffect(() => {
+
+    setTimeout(() => {
+      inputRef.current?.focus();
+      console.log("focuesed");
+      
+    }, 100);
+    return ()=>{
+      console.log("umounted");
+      
+
+    }
+  }, []);
+  useEffect(()=>{
+
+    let timeout;
+  timeout=  setTimeout(()=>{
+      console.log(searchText);
+      
+      
+
+    },300)
+    return ()=>{
+      clearTimeout(timeout);
+    }
+  },[searchText])
 
   const handleSearch = (text) => {
     setSearchText(text);
@@ -18,21 +52,21 @@ export default function SearchScreen() {
 
   return (
     <View style={styles.container}>
-   
       <View style={styles.header}>
-      
         <View style={styles.searchContainer}>
-       
           <TextInput
+            ref={inputRef} // Attach the reference here
             style={styles.searchInput}
             placeholder="Search for products..."
             placeholderTextColor="#999"
             value={searchText}
             onChangeText={handleSearch}
+            onSubmitEditing={() => {
+              navigation.navigate('SearchedProduct',searchText);
+            }}
           />
         </View>
       </View>
-
 
       {suggestions.length > 0 && (
         <View style={styles.suggestionsContainer}>
@@ -63,12 +97,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  logoText: {
-    color: 'white',
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginRight: 10,
   },
   searchContainer: {
     flex: 1,

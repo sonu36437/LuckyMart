@@ -19,7 +19,7 @@ export default function ProductDetailScreen() {
     const count= isInCart?isInCart.itemCount:0;
     
     const images = [
-        product.image,
+        product.image||product.thumbnail,
         'https://via.placeholder.com/600x400.png?text=Image+2',
         'https://via.placeholder.com/600x400.png?text=Image+3', 
     ];
@@ -162,6 +162,8 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flexDirection: "row-reverse",
         justifyContent: "space-between",
+        position:'absolute',
+        bottom:0
      
     },
     buyNowButton: {
@@ -178,7 +180,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Outfit-Bold',
     },
     cartButton: {
-        borderRadius: 2,
+        borderRadius: 0,
         width: width / 2,
         height: 55,
         backgroundColor:COLORS.black,

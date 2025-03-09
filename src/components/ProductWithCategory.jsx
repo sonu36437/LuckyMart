@@ -54,14 +54,15 @@ export default function ProductWithCategory({ productsByCategory }) {
 }
 const styles = StyleSheet.create({
   categorySection: {
-    marginVertical: 8,
-    paddingHorizontal: 10,
+    marginVertical: 2,
+    paddingHorizontal: 0,
   },
   categoryHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 5,
+    paddingHorizontal:10,
   },
   categoryTitle: {
     color: 'black',
