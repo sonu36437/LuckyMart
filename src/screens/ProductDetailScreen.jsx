@@ -1,7 +1,7 @@
 import { View, Text, Image, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 import React, { useEffect } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { COLORS, FONT_SIZES } from '../constants/constants';
+import { COLORS, FONT_SIZES, FONTS } from '../constants/constants';
 import { useCartStore } from '../store/cart';
 import CartButton from '../components/CartButton';
 import { color } from '@rneui/base';
@@ -43,20 +43,22 @@ export default function ProductDetailScreen() {
                     <Image key={index} source={{ uri: img }} style={styles.productImage} />
                 ))}
             </ScrollView>
-            <View style={{paddingHorizontal:10 ,}}>
+     <View style={{paddingHorizontal:10 ,}}>
+               {product.brand &&
                 <View style={{flexDirection:'row', marginBottom:10}} >
                 <Text style={{fontFamily:'Outfit-Bold', color:COLORS.black}}>Brand:</Text>
-                <Text style={{fontFamily:'Outfit-Regular', color:COLORS.black}}> Puma</Text>
-                </View>
+                <Text style={{fontFamily:'Outfit-Regular', color:COLORS.black}}> {product.brand}</Text>
+                </View>}
+             
 
                 <Text style={styles.title}>{product.title}</Text>
                 <View style={styles.priceRow}>
                     <View>
-                    <Text style={styles.price}>Price: ₹ {product.price}</Text>
-                    <Text style={{fontFamily:'Outfit-Bold', fontSize:FONT_SIZES.large,color:COLORS.primary}}>Now At : ₹ {product.price}</Text>
+                    <Text style={[styles.price, product.discountPercentage && styles.cutPrice]}>Price: ₹ {product.price}</Text>
+                   { product.discountPercentage && <Text style={{fontFamily:'Outfit-Bold', fontSize:FONT_SIZES.large,color:COLORS.primary}}>Now At : ₹ {(product.price-product.price*product?.discountPercentage/100).toFixed(2)}</Text>}
                     </View>
                  { product.discountPercentage &&
-                    <Text>Discount: {product?.discountPercentage}%</Text>}
+                    <Text style={{fontFamily:FONTS.bold , color:'green'}}>Discount: {product?.discountPercentage}%</Text>}
                 </View>
                 <View style={styles.section}>
                     <Text style={styles.sectionTitle}>Description</Text>
@@ -129,11 +131,17 @@ const styles = StyleSheet.create({
     price: {
         fontSize: FONT_SIZES.large,
         fontFamily: 'Outfit-Bold',
-        color:COLORS.black,
-        textDecorationLine: 'line-through',
+        color:COLORS.primary,
+     
     
 
   
+    },
+    cutPrice:{
+        textDecorationLine: 'line-through',
+        color:COLORS.black
+        
+
     },
     section: {
         marginBottom: 16,

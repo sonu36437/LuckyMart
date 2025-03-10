@@ -4,6 +4,7 @@ import Login from './Login';
 import SignUp from './SignUp';
 import VerificationScreen from './VerificationScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { COLORS } from '../constants/constants';
 
 
 const Stack = createNativeStackNavigator();
@@ -40,7 +41,7 @@ const MailVerification = () => {
       <TouchableOpacity
   onPress={openMailApp}
   style={{
-    backgroundColor: 'black',
+    backgroundColor: COLORS.primary,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
